@@ -21,7 +21,6 @@ body {
   background-attachment: fixed;
   color: #1E293B;
   min-height: 100vh;
-  overflow-x: hidden;
   position: relative;
 }
 
@@ -35,15 +34,24 @@ body::before {
   z-index: 0;
 }
 
+/* KELAS KHUSUS BERANDA AGAR MENUTUPI LAYAR SECARA MUTLAK */
+.app-landing-screen {
+  position: fixed !important;
+  inset: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  z-index: 99999 !important;
+  background: radial-gradient(circle at top right, rgba(6, 95, 70, 0.96), rgba(2, 6, 23, 0.98)) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+  overflow-y: auto !important;
+  transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
 header, main, footer {
   position: relative;
   z-index: 10;
-}
-
-#introScreen {
-  position: fixed;
-  inset: 0;
-  z-index: 50;
 }
 
 h1, h2, h3, h4, .font-display {
