@@ -9,18 +9,100 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css" />
+  <style>
+    @keyframes floatSlow {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-10px) rotate(1.5deg); }
+    }
+    @keyframes pulseGlow {
+      0%, 100% { opacity: 0.5; transform: scale(1); }
+      50% { opacity: 0.85; transform: scale(1.06); }
+    }
+    @keyframes fadeInScale {
+      0% { opacity: 0; transform: scale(0.96) translateY(12px); }
+      100% { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    @keyframes bgPan {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, rgba(2, 44, 34, 0.60), rgba(4, 47, 46, 0.70)),
+                  url('https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&w=1920&q=80');
+      background-size: 200% 200%, cover;
+      background-position: center;
+      animation: bgPan 18s ease infinite;
+      background-attachment: fixed;
+      color: #1E293B;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    .intro-overlay {
+      background: linear-gradient(135deg, rgba(2, 6, 23, 0.90), rgba(6, 78, 59, 0.85)), url('https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&w=1920&q=80');
+      background-size: cover;
+      background-position: center;
+    }
+    .banner-bg {
+      background: linear-gradient(135deg, rgba(2, 44, 34, 0.82), rgba(6, 78, 59, 0.78)), url('https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&w=1920&q=80');
+      background-size: cover;
+      background-position: center;
+    }
+    .banner-box {
+      background: rgba(2, 44, 34, 0.65);
+    }
+    h1, h2, h3, h4, .font-display {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    .font-mono-tech {
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .card-elevated {
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.45);
+      box-shadow: 0 12px 35px -5px rgba(0, 0, 0, 0.15), 0 4px 15px rgba(0, 0, 0, 0.06);
+      transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .card-elevated:hover {
+      box-shadow: 0 22px 45px -10px rgba(0, 0, 0, 0.25);
+      transform: translateY(-3px);
+    }
+    .glow-effect {
+      animation: pulseGlow 4s ease-in-out infinite;
+    }
+    .animate-in-custom {
+      animation: fadeInScale 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    .map-pin {
+      cursor: pointer;
+      transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .map-pin:hover {
+      transform: scale(1.25);
+    }
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #022c22;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #059669;
+      border-radius: 9999px;
+    }
+  </style>
 </head>
 <body class="min-h-screen flex flex-col antialiased selection:bg-emerald-500 selection:text-white">
 
   <!-- Intro / Walkthrough Screen -->
   <div id="introScreen" class="fixed inset-0 z-50 flex flex-col items-center justify-center p-4 sm:p-6 overflow-y-auto transition-all duration-700 intro-overlay">
-    
     <div class="absolute -top-32 -left-32 w-96 h-96 bg-emerald-500/30 rounded-full blur-3xl glow-effect pointer-events-none"></div>
     <div class="absolute -bottom-32 -right-32 w-96 h-96 bg-teal-500/30 rounded-full blur-3xl glow-effect pointer-events-none" style="animation-delay: 2s;"></div>
 
     <div class="relative z-10 max-w-3xl w-full bg-slate-950/90 backdrop-blur-2xl rounded-3xl p-6 sm:p-10 shadow-2xl border border-emerald-500/40 space-y-6 animate-in-custom">
-      
       <div class="flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
         <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-xs font-semibold tracking-wide">
           <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
@@ -54,13 +136,11 @@
             <h3 class="font-display font-bold text-sm text-white">Pilih Wilayah</h3>
             <p class="text-xs text-slate-300">Tentukan lokasi lahan di panel kiri (Sumedang Selatan, Tanjungsari, atau Pangalengan).</p>
           </div>
-
           <div class="bg-slate-900/90 rounded-2xl p-4 border border-emerald-500/30 space-y-1.5 shadow-lg">
             <span class="w-7 h-7 rounded-xl bg-emerald-500/20 text-emerald-400 font-bold flex items-center justify-center text-xs border border-emerald-500/30">2</span>
             <h3 class="font-display font-bold text-sm text-white">Pilih Komoditas</h3>
             <p class="text-xs text-slate-300">Pilih tanaman sebelumnya untuk melihat diagnosis residu hara tanah saat ini.</p>
           </div>
-
           <div class="bg-slate-900/90 rounded-2xl p-4 border border-emerald-500/30 space-y-1.5 shadow-lg">
             <span class="w-7 h-7 rounded-xl bg-emerald-500/20 text-emerald-400 font-bold flex items-center justify-center text-xs border border-emerald-500/30">3</span>
             <h3 class="font-display font-bold text-sm text-white">Analisis &amp; Rotasi</h3>
@@ -78,7 +158,6 @@
           </svg>
         </button>
       </div>
-
     </div>
   </div>
 
@@ -120,7 +199,6 @@
     
     <!-- Context Banner -->
     <div class="relative overflow-hidden rounded-3xl p-6 sm:p-8 text-white shadow-2xl border border-emerald-500/40 banner-bg">
-
       <div class="max-w-2xl relative z-10">
         <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-emerald-500/30 text-emerald-200 text-xs font-semibold mb-3 border border-emerald-400/40 backdrop-blur-md">
           <span>NASA Space Apps Challenge 2026</span>
@@ -134,8 +212,7 @@
           Sistem menganalisis parameter kelembapan akar (GWETROOT), curah hujan terkoreksi (PRECTOTCORR), dan suhu permukaan 2 meter dari satelit NASA untuk memberikan rekomendasi rotasi tanaman yang paling akurat dan berkelanjutan.
         </p>
       </div>
-
-      <div class="flex flex-wrap sm:flex-nowrap gap-3 shrink-0 relative z-10">
+      <div class="flex flex-wrap sm:flex-nowrap gap-3 shrink-0 relative z-10 mt-4 sm:mt-0">
         <div class="relative overflow-hidden rounded-2xl px-5 py-3.5 text-center shadow-xl border border-emerald-400/30 backdrop-blur-xl banner-box">
           <div class="relative z-10">
             <p class="text-[10px] uppercase tracking-wider text-emerald-300 font-bold">Sumber Cuaca</p>
@@ -159,8 +236,6 @@
         
         <!-- 1. Input Parameters Card -->
         <div class="card-elevated rounded-3xl p-6 relative overflow-hidden">
-          <div class="absolute -right-6 -bottom-6 w-32 h-32 bg-cover bg-center opacity-10 pointer-events-none rounded-full bg-input-decor"></div>
-
           <div class="flex items-center justify-between mb-5 relative z-10">
             <h3 class="font-display font-bold text-sm text-slate-900 uppercase tracking-wider">Parameter Kondisi Lahan</h3>
             <span class="text-xs font-semibold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-lg border border-emerald-200 shadow-xs">Interaktif</span>
@@ -222,7 +297,6 @@
               </g>
               <path d="M 15 135 Q 65 105, 110 110 T 195 70 T 295 42 L 320 165 L 0 165 Z" fill="#D1FAE5" opacity="0.75" />
               <path d="M 35 148 Q 95 124, 145 114 T 245 75 L 320 165 L 0 165 Z" fill="#A7F3D0" opacity="0.55" />
-              
               <polyline points="232,50 184,70 118,120" fill="none" stroke="#0F766E" stroke-width="1.8" stroke-dasharray="4 3" opacity="0.75" />
 
               <text x="10" y="15" font-size="8" fill="#475569" font-family="JetBrains Mono, monospace">PRIANGAN TIMUR &amp; BANDUNG SELATAN</text>
@@ -403,7 +477,6 @@
             </h3>
             <span class="text-xs text-emerald-200 font-medium">Pergantian famili tanaman untuk memutus siklus hama &amp; memulihkan hara</span>
           </div>
-
           <div id="recommendationsContainer" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
         </div>
 
@@ -449,10 +522,382 @@
     </div>
   </footer>
 
-  <!-- Include separated data files and application logic -->
-  <script src="sumedang.js"></script>
-  <script src="tanjungsari.js"></script>
-  <script src="pangalengan.js"></script>
-  <script src="app.js"></script>
+  <!-- Embedded Application Data and Logic -->
+  <script>
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
+
+    const cropResidues = {
+      padi: 'Defisit Nitrogen & Silika serta pemadatan lapisan tapak bajak akibat genangan air sawah berulang.',
+      jagung: 'Kuras hara makro (Heavy Feeder) pada Nitrogen (N), Fosfor (P), dan Kalium (K) disertai penurunan bahan organik tanah.',
+      cabai: 'Budidaya cabai berulang meningkatkan populasi bakteri layu tanah (Ralstonia solanacearum) dan nematoda akar di dalam tanah.',
+      kentang: 'Risiko tinggi erosi topsoil akibat penggemburan guludan intensif serta akumulasi jamur busuk umbi (Phytophthora) dan nematoda.'
+    };
+
+    const nasaRegions = {
+      sumedang: {
+        name: 'Sumedang Selatan',
+        lat: -6.8586,
+        lon: 107.9204,
+        coords: 'Lat -6.8586°, Lon 107.9204°',
+        zone: 'Dataran Menengah • Sawah Irigasi & Tadah Hujan',
+        soilProfile: {
+          type: 'Latosol & Inceptisol',
+          ph: '5,5 – 6,2 (Agak Masam)',
+          texture: 'Lempung Liat • Daya Ikat Tinggi',
+          organic: 'Sedang (2,1% – 2,8% C-Org)',
+          origin: 'Terbentuk dari pelapukan batuan vulkanik tua dengan solum tanah dalam. Mampu menahan air sawah dengan sangat baik, namun rawan membentuk lapisan tapak bajak (hardpan) apabila ditanami padi terus-menerus.',
+          management: 'Lakukan pengolahan tanah sedang untuk memecah lapisan tapak bajak, kembalikan kompos jerami, dan taburkan kapur dolomit 0,5–1 ton/ha sebelum menanam kedelai atau kacang tanah.'
+        },
+        plantingAdvice: 'Jendela tanam rotasi paling aman dimulai pada awal peralihan kemarau (Mei–Juni saat GWETROOT turun ke 0,56–0,68) untuk palawija/kacang-kacangan, atau Oktober saat awal hujan kembali membasahi zona akar.',
+        gwetroot: [0.82, 0.84, 0.81, 0.78, 0.68, 0.56, 0.45, 0.39, 0.41, 0.54, 0.72, 0.80],
+        precip:   [11.4, 12.1, 10.8, 8.9, 5.2, 3.1, 1.8, 1.4, 2.1, 5.6, 9.8, 11.2],
+        temp:     [23.8, 23.9, 24.2, 24.5, 24.4, 24.0, 23.6, 23.8, 24.4, 24.8, 24.3, 23.9]
+      },
+      tanjungsari: {
+        name: 'Tanjungsari, Sumedang',
+        lat: -6.9061,
+        lon: 107.7942,
+        coords: 'Lat -6.9061°, Lon 107.7942°',
+        zone: 'Sentra Palawija • Tegalan & Sawah Tadah Hujan',
+        soilProfile: {
+          type: 'Andosol & Latosol',
+          ph: '5,6 – 6,3 (Agak Masam – Netral)',
+          texture: 'Lempung Remah • Drainase Baik',
+          organic: 'Sedang–Tinggi (2,8% – 3,6% C-Org)',
+          origin: 'Zona peralihan endapan abu vulkanik dan pelapukan batuan bertekstur remah serta porous. Sirkulasi udara (aerasi) di zona perakaran sangat baik sehingga mendukung pembentukan bintil akar Rhizobium pada palawija.',
+          management: 'Gunakan mulsa jerami untuk menahan laju penguapan air pada bulan Juli–September karena tekstur tanah remah lebih cepat meloloskan air ketika curah hujan turun di bawah 2 mm/hari.'
+        },
+        plantingAdvice: 'Manfaatkan sisa kelembapan tanah bulan Mei (GWETROOT 0,63) untuk mengejar perkecambahan seragam komoditas palawija tanpa perlu penyiraman intensif di awal tanam.',
+        gwetroot: [0.79, 0.81, 0.78, 0.74, 0.63, 0.51, 0.41, 0.36, 0.38, 0.50, 0.69, 0.77],
+        precip:   [10.8, 11.5, 10.2, 8.2, 4.8, 2.7, 1.5, 1.2, 1.9, 5.1, 9.2, 10.5],
+        temp:     [22.4, 22.5, 22.8, 23.0, 22.9, 22.5, 22.1, 22.3, 22.9, 23.3, 22.8, 22.5]
+      },
+      pangalengan: {
+        name: 'Pangalengan, Kab. Bandung',
+        lat: -7.1764,
+        lon: 107.5681,
+        coords: 'Lat -7.1764°, Lon 107.5681°',
+        zone: 'Dataran Tinggi • Hortikultura Pegunungan',
+        soilProfile: {
+          type: 'Andosol Vulkanik',
+          ph: '5,0 – 5,8 (Masam)',
+          texture: 'Debu Lempungan Sangat Gembur',
+          organic: 'Tinggi (4,2% – 5,5% C-Org)',
+          origin: 'Berasal dari pelapukan abu vulkanik pegunungan yang sangat gembur dan kaya bahan organik, namun memiliki tingkat kemasaman tinggi (pH rendah) serta agregat yang mudah tererosi pada lahan miring.',
+          management: 'Wajib membuat guludan searah kontur lereng untuk menahan erosi topsoil dan menaburkan kapur dolomit 1–1,5 ton/ha untuk menekan risiko penyakit akar gada pada tanaman sayuran.'
+        },
+        plantingAdvice: 'Kelembapan zona akar tetap terjaga sepanjang tahun (GWETROOT ≥ 0,49); jendela Juni–September merupakan waktu terbaik untuk rotasi sayuran akar dan kacang kapri dengan risiko busuk daun paling rendah.',
+        gwetroot: [0.86, 0.88, 0.85, 0.82, 0.74, 0.64, 0.55, 0.49, 0.52, 0.65, 0.79, 0.85],
+        precip:   [12.6, 13.2, 11.9, 9.6, 6.1, 3.8, 2.4, 1.9, 2.8, 6.8, 11.1, 12.4],
+        temp:     [18.6, 18.7, 18.9, 19.1, 19.0, 18.5, 18.0, 18.2, 18.8, 19.2, 18.9, 18.7]
+      }
+    };
+
+    const rotationMatrix = {
+      sumedang: {
+        padi: [
+          { name: 'Kedelai', latin: 'Glycine max', family: 'Leguminosae', score: 95, soilRecovery: 'Fiksasi Nitrogen alami (+45–60 kg N/ha) melalui bintil akar bakteri Rhizobium dan memecah lapisan tapak bajak sawah.', weatherRisk: 'Tanam pada awal peralihan kemarau (Mei–Juni) dengan saluran drainase keliling agar akar tidak tergenang hujan sisa.' },
+          { name: 'Kacang Tanah', latin: 'Arachis hypogaea', family: 'Leguminosae', score: 91, soilRecovery: 'Mengembalikan unsur Nitrogen tanah sekaligus meningkatkan aerasi dan kegemburan agregat tanah liat Latosol.', weatherRisk: 'Gunakan mulsa jerami sisa panen padi untuk menjaga kelembapan tanah saat GWETROOT turun di bulan Juli–Agustus.' }
+        ],
+        jagung: [
+          { name: 'Kacang Hijau', latin: 'Vigna radiata', family: 'Leguminosae', score: 94, soilRecovery: 'Siklus panen singkat (60 hari) yang efektif memulihkan cadangan Nitrogen pasca-tanaman jagung yang rakus hara.', weatherRisk: 'Sangat toleran terhadap penurunan curah hujan (PRECTOTCORR < 3 mm/hari) pada pertengahan musim kemarau.' },
+          { name: 'Ubi Jalar', latin: 'Ipomoea batatas', family: 'Convolvulaceae', score: 88, soilRecovery: 'Tajuk daun rapat menutup permukaan lahan sehingga menekan gulma dan memperkaya biomassa serasah organik.', weatherRisk: 'Bentuk guludan setinggi 30 cm untuk mengantisipasi hujan lokal mendadak di bulan peralihan.' }
+        ],
+        cabai: [
+          { name: 'Jagung Manis', latin: 'Zea mays saccharata', family: 'Poaceae', score: 93, soilRecovery: 'Bukan tanaman inang bagi bakteri layu Ralstonia solanacearum sehingga efektif memutus siklus patogen bekas cabai.', weatherRisk: 'Pastikan pasokan air mencukupi saat fase pembungaan jika ditanam memasuki bulan kering (Juli–September).' },
+          { name: 'Bawang Daun', latin: 'Allium fistulosum', family: 'Amaryllidaceae', score: 89, soilRecovery: 'Eksudat akar mengandung senyawa antimikroba alami yang merangsang mikroorganisme antagonis penekan jamur tanah.', weatherRisk: 'Terapkan bedengan tinggi dan taburan kapur dolomit bila pH tanah di bawah 5,8 saat curah hujan tinggi.' }
+        ],
+        kentang: [
+          { name: 'Buncis Tegak', latin: 'Phaseolus vulgaris', family: 'Leguminosae', score: 90, soilRecovery: 'Menambat Nitrogen bebas dan mengikat partikel tanah permukaan guna mencegah erosi topsoil lanjutan.', weatherRisk: 'Gunakan mulsa organik untuk menjaga suhu zona akar tetap stabil di ketinggian menengah Sumedang.' },
+          { name: 'Sawi Hijau / Caisim', latin: 'Brassica rapa', family: 'Brassicaceae', score: 86, soilRecovery: 'Melepaskan senyawa biofumigan (glukosinolat) alami yang menekan populasi nematoda dan jamur tanah.', weatherRisk: 'Perlu naungan atau penyiraman rutin bila suhu T2M siang hari menyentuh puncak > 24,5°C.' }
+        ]
+      },
+      tanjungsari: {
+        padi: [
+          { name: 'Kedelai Edamame', latin: 'Glycine max', family: 'Leguminosae', score: 96, soilRecovery: 'Sangat cocok pada tanah Andosol-Latosol Tanjungsari untuk menambat Nitrogen via Rhizobium setelah panen padi.', weatherRisk: 'Manfaatkan sisa kelembapan tanah bulan Mei (GWETROOT ~0,63) agar perkecambahan seragam tanpa irigasi berlebih.' },
+          { name: 'Jagung Hibrida', latin: 'Zea mays', family: 'Poaceae', score: 90, soilRecovery: 'Perakaran serabut dalam memperbaiki struktur pori tanah tegalan dan menghasilkan biomassa kompos melimpah.', weatherRisk: 'Perhatikan pemupukan berimbang dan mulsa jerami untuk menahan penguapan saat kemarau puncak.' }
+        ],
+        jagung: [
+          { name: 'Kacang Tanah', latin: 'Arachis hypogaea', family: 'Leguminosae', score: 95, soilRecovery: 'Kombinasi rotasi klasik sentra palawija Tanjungsari untuk mengganti kehilangan Nitrogen dan memperbaiki rasio C/N.', weatherRisk: 'Tekstur tanah remah Tanjungsari mendukung pembentukan polong maksimal pada curah hujan sedang (3–6 mm/hari).' },
+          { name: 'Kacang Panjang', latin: 'Vigna unguiculata', family: 'Leguminosae', score: 91, soilRecovery: 'Menyumbang pupuk hijau dan bintil akar aktif yang menyuburkan lapisan olah tanah secara alami.', weatherRisk: 'Siapkan ajir bambu yang kokoh untuk menahan hembusan angin dan hujan sore hari di peralihan musim.' }
+        ],
+        cabai: [
+          { name: 'Jagung Pulut / Manis', latin: 'Zea mays', family: 'Poaceae', score: 94, soilRecovery: 'Memutus rantai penyakit layu bakteri (Ralstonia) dan virus kuning yang umum menyerang lahan cabai monokultur.', weatherRisk: 'Suhu mikroklimat Tanjungsari (22,1–23,3°C) sangat ideal untuk pengisian tongkol manis berkualitas tinggi.' },
+          { name: 'Buncis Rambat', latin: 'Phaseolus vulgaris', family: 'Leguminosae', score: 89, soilRecovery: 'Memulihkan kesuburan hara Nitrogen yang terkuras selama masa panen cabai jangka panjang.', weatherRisk: 'Gunakan ajir bambu dan buat parit drainase antar-bedengan pada bulan basah (November–Maret).' }
+        ],
+        kentang: [
+          { name: 'Kubis / Kol', latin: 'Brassica oleracea', family: 'Brassicaceae', score: 92, soilRecovery: 'Akar melepaskan senyawa glukosinolat sebagai biofumigan alami pembasmi patogen tular tanah bekas Solanaceae.', weatherRisk: 'Aplikasi kapur dolomit sangat disarankan untuk mencegah penyakit akar gada pada tanah agak masam.' },
+          { name: 'Wortel', latin: 'Daucus carota', family: 'Apiaceae', score: 88, soilRecovery: 'Beda famili botani sehingga aman dari hama kentang sekaligus memanfaatkan sisa kegemburan tanah.', weatherRisk: 'Jaga konsistensi kelembapan tanah (GWETROOT > 0,50) agar umbi tidak pecah akibat fluktuasi air.' }
+        ]
+      },
+      pangalengan: {
+        padi: [
+          { name: 'Kacang Kapri', latin: 'Pisum sativum', family: 'Leguminosae', score: 94, soilRecovery: 'Adaptif di suhu sejuk dataran tinggi (~18,7°C) sambil memfiksasi Nitrogen alami melalui bakteri Rhizobium.', weatherRisk: 'Pasang ajir bambu dan buat bedengan tinggi untuk menghadapi curah hujan tinggi Pangalengan (>11 mm/hari di musim hujan).' },
+          { name: 'Brokoli', latin: 'Brassica oleracea var. italica', family: 'Brassicaceae', score: 90, soilRecovery: 'Menambah residu biomassa organik tinggi dan menekan patogen tanah melalui efek biofumigasi alami.', weatherRisk: 'Pastikan drainase guludan lancar agar kelembapan tanah tinggi (GWETROOT > 0,80) tidak memicu busuk batang.' }
+        ],
+        jagung: [
+          { name: 'Buncis Kenya / Tegak', latin: 'Phaseolus vulgaris', family: 'Leguminosae', score: 95, soilRecovery: 'Mengembalikan ketersediaan Nitrogen pada tanah Andosol vulkanik setelah serapan hara tinggi oleh jagung.', weatherRisk: 'Gunakan mulsa organik untuk mencegah percikan spora jamur tanah saat curah hujan tinggi.' },
+          { name: 'Wortel Dataran Tinggi', latin: 'Daucus carota', family: 'Apiaceae', score: 91, soilRecovery: 'Memanfaatkan struktur tanah Andosol yang gembur tanpa menguras hara Nitrogen berlebih.', weatherRisk: 'Buat guludan searah kontur lereng untuk mencegah erosi permukaan saat hujan lebat November–Februari.' }
+        ],
+        cabai: [
+          { name: 'Bawang Prei / Daun', latin: 'Allium porrum', family: 'Amaryllidaceae', score: 95, soilRecovery: 'Eksudat akar menstimulasi mikroorganisme antagonis yang menekan bakteri Ralstonia dan jamur Fusarium.', weatherRisk: 'Sangat sesuai dengan suhu sejuk Pangalengan (18–19°C) dan tahan terhadap kelembapan tanah zona akar tinggi.' },
+          { name: 'Kubis / Kol', latin: 'Brassica oleracea', family: 'Brassicaceae', score: 90, soilRecovery: 'Memutus siklus inang penyakit Solanaceae serta memberikan efek biofumigan alami pada zona perakaran.', weatherRisk: 'Tambahkan kapur dolomit sebelum tanam guna menetralkan pH tanah vulkanik (5,0–5,8) dari risiko akar gada.' }
+        ],
+        kentang: [
+          { name: 'Wortel', latin: 'Daucus carota', family: 'Apiaceae', score: 96, soilRecovery: 'Rotasi utama petani Pangalengan untuk memutus siklus nematoda sista kentang dan jamur Phytophthora.', weatherRisk: 'Terapkan guludan kontur dan mulsa jerami untuk menahan erosi topsoil pada lahan miring saat hujan lebat.' },
+          { name: 'Kacang Kapri / Buncis', latin: 'Pisum sativum', family: 'Leguminosae', score: 93, soilRecovery: 'Memulihkan cadangan Nitrogen alami dan mengikat agregat tanah vulkanik yang gembur pasca-panen kentang.', weatherRisk: 'Gunakan ajir bambu dan jarak tanam lega agar sirkulasi udara kanopi mengurangi risiko jamur saat GWETROOT > 0,80.' }
+        ]
+      }
+    };
+
+    let climateChart = null;
+    let selectedMonthIndex = 4;
+
+    function selectMonth(idx) {
+      selectedMonthIndex = idx;
+      renderPlantingCalendar(nasaRegions[document.getElementById('regionSelect').value]);
+    }
+
+    function enterDashboard() {
+      const intro = document.getElementById('introScreen');
+      if (intro) {
+        intro.classList.add('opacity-0', 'pointer-events-none');
+        setTimeout(() => { intro.style.display = 'none'; }, 700);
+      }
+    }
+
+    function resetToIntro() {
+      const intro = document.getElementById('introScreen');
+      if (intro) {
+        intro.style.display = 'flex';
+        setTimeout(() => { intro.classList.remove('opacity-0', 'pointer-events-none'); }, 10);
+      }
+    }
+
+    function avg(arr) {
+      return arr.reduce((a, b) => a + b, 0) / arr.length;
+    }
+
+    function selectRegionFromMap(regionKey) {
+      document.getElementById('regionSelect').value = regionKey;
+      updateDashboard();
+    }
+
+    function updateMapPins(activeKey) {
+      ['sumedang', 'tanjungsari', 'pangalengan'].forEach(key => {
+        const ring = document.getElementById('ring-' + key);
+        const dot = document.getElementById('dot-' + key);
+        if (ring && dot) {
+          if (key === activeKey) {
+            ring.setAttribute('opacity', '0.35');
+            dot.setAttribute('fill', '#047857');
+            dot.setAttribute('r', '7.5');
+          } else {
+            ring.setAttribute('opacity', '0');
+            dot.setAttribute('fill', '#64748B');
+            dot.setAttribute('r', '5.5');
+          }
+        }
+      });
+    }
+
+    function renderPlantingCalendar(region) {
+      const calGrid = document.getElementById('plantingCalendarGrid');
+      if (!calGrid) return;
+      calGrid.innerHTML = months.map((m, idx) => {
+        const p = region.precip[idx];
+        let bgClass = 'bg-sky-50 border-sky-200 text-sky-900';
+        let dotClass = 'bg-sky-500';
+        let label = 'Basah';
+
+        if (p < 3.5) {
+          bgClass = 'bg-amber-50 border-amber-200 text-amber-900';
+          dotClass = 'bg-amber-500';
+          label = 'Kering';
+        } else if (p >= 3.5 && p <= 7.5) {
+          bgClass = 'bg-emerald-50 border-emerald-300 text-emerald-900';
+          dotClass = 'bg-emerald-600';
+          label = 'Rotasi';
+        }
+
+        const isSelected = idx === selectedMonthIndex;
+        const ringStyle = isSelected ? 'ring-2 ring-emerald-600 shadow-md scale-105 bg-emerald-100/90' : '';
+
+        return `
+          <div onclick="selectMonth(${idx})" class="rounded-2xl border ${bgClass} ${ringStyle} p-2 text-center transition hover:scale-105 cursor-pointer shadow-2xs">
+            <span class="block text-[11px] font-bold">${m}</span>
+            <span class="inline-block w-2 h-2 rounded-full ${dotClass} my-1"></span>
+            <span class="block text-[9px] font-semibold opacity-90">${label}</span>
+          </div>
+        `;
+      }).join('');
+
+      const mName = months[selectedMonthIndex];
+      const mPrecip = region.precip[selectedMonthIndex];
+      const mGwet = region.gwetroot[selectedMonthIndex];
+      const mTemp = region.temp[selectedMonthIndex];
+      let statusDesc = mPrecip < 3.5 ? 'Musim Kemarau (Waktu pengeringan / panen palawija)' : (mPrecip <= 7.5 ? 'Jendela Rotasi Ideal (Kelembapan akar optimal untuk tanam)' : 'Musim Basah / Hujan (Waktu optimal padi / drainase)');
+
+      const adviceElem = document.getElementById('plantingWindowAdvice');
+      if (adviceElem) {
+        adviceElem.innerHTML = `
+          <strong>Bulan ${mName}:</strong> Curah Hujan <strong>${mPrecip} mm/hari</strong> | Kelembapan Akar (GWETROOT) <strong>${mGwet}</strong> | Suhu <strong>${mTemp}°C</strong>. <em>Status: ${statusDesc}</em>. (Klik bulan lain pada kalender untuk melihat detail).
+        `;
+      }
+    }
+
+    function updateDashboard() {
+      const regionKey = document.getElementById('regionSelect').value;
+      const cropKey = document.getElementById('cropSelect').value;
+      const region = nasaRegions[regionKey];
+
+      updateMapPins(regionKey);
+
+      document.getElementById('soilResidueText').textContent = cropResidues[cropKey];
+      document.getElementById('metaCoords').textContent = region.coords;
+      document.getElementById('metaZone').textContent = region.zone;
+      document.getElementById('activeRegionBadge').textContent = region.name;
+
+      document.getElementById('soilTypeVal').textContent = region.soilProfile.type;
+      document.getElementById('soilPhVal').textContent = region.soilProfile.ph;
+      document.getElementById('soilTextureVal').textContent = region.soilProfile.texture;
+      document.getElementById('soilOrganicVal').textContent = region.soilProfile.organic;
+      document.getElementById('soilOriginDesc').textContent = region.soilProfile.origin;
+      document.getElementById('soilManagementDesc').textContent = region.soilProfile.management;
+
+      const avgGwet = avg(region.gwetroot);
+      const avgPrecip = avg(region.precip);
+      const avgTemp = avg(region.temp);
+
+      document.getElementById('valGwetroot').textContent = avgGwet.toFixed(2);
+      document.getElementById('barGwetroot').style.width = Math.round(avgGwet * 100) + '%';
+      document.getElementById('badgeGwetroot').textContent = avgGwet >= 0.70 ? 'Lembap Tinggi' : 'Optimal';
+
+      document.getElementById('valPrecip').textContent = avgPrecip.toFixed(2);
+      document.getElementById('barPrecip').style.width = Math.min(100, Math.round((avgPrecip / 12) * 100)) + '%';
+
+      document.getElementById('valTemp').textContent = avgTemp.toFixed(1) + '°C';
+      document.getElementById('barTemp').style.width = Math.min(100, Math.round((avgTemp / 32) * 100)) + '%';
+      document.getElementById('badgeTemp').textContent = avgTemp < 20 ? 'Sejuk Pegunungan' : (avgTemp < 23.5 ? 'Sejuk–Sedang' : 'Hangat Menengah');
+
+      renderPlantingCalendar(region);
+
+      const recs = rotationMatrix[regionKey][cropKey];
+      const container = document.getElementById('recommendationsContainer');
+      container.innerHTML = recs.map((item, idx) => `
+        <article class="card-elevated rounded-3xl p-6 flex flex-col justify-between border-t-4 ${idx === 0 ? 'border-t-emerald-600' : 'border-t-teal-600'}">
+          <div>
+            <div class="flex items-start justify-between gap-3 mb-3">
+              <div>
+                <span class="inline-block text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-lg bg-slate-100 text-slate-700 mb-1.5 border border-slate-200">
+                  Opsi #${idx + 1} • Famili ${item.family}
+                </span>
+                <h4 class="font-display font-bold text-lg text-slate-900 leading-tight">
+                  ${item.name}
+                </h4>
+                <p class="text-xs italic text-slate-500 mt-0.5">${item.latin}</p>
+              </div>
+              <div class="text-right shrink-0 bg-emerald-50 border border-emerald-200 rounded-2xl px-3.5 py-2 shadow-2xs">
+                <span class="block font-mono-tech font-black text-lg text-emerald-800">${item.score}%</span>
+                <span class="block text-[10px] font-bold text-emerald-700">Kecocokan</span>
+              </div>
+            </div>
+
+            <div class="space-y-3 mt-4">
+              <div class="rounded-2xl bg-emerald-50/80 border border-emerald-200 p-3.5">
+                <p class="text-[11px] font-bold text-emerald-900 uppercase tracking-wide mb-1">
+                  Pemulihan Unsur Hara Tanah
+                </p>
+                <p class="text-xs text-emerald-950 leading-relaxed">${item.soilRecovery}</p>
+              </div>
+
+              <div class="rounded-2xl bg-amber-50/80 border border-amber-200 p-3.5">
+                <p class="text-[11px] font-bold text-amber-900 uppercase tracking-wide mb-1">
+                  Mitigasi Risiko Cuaca
+                </p>
+                <p class="text-xs text-amber-950 leading-relaxed">${item.weatherRisk}</p>
+              </div>
+            </div>
+          </div>
+        </article>
+      `).join('');
+
+      renderChart(region);
+    }
+
+    function renderChart(region) {
+      const ctx = document.getElementById('climateChart').getContext('2d');
+      if (climateChart) {
+        climateChart.destroy();
+      }
+      climateChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: months,
+          datasets: [
+            {
+              type: 'line',
+              label: 'GWETROOT (Kelembapan Akar 0–1)',
+              data: region.gwetroot,
+              borderColor: '#059669',
+              backgroundColor: 'rgba(5, 150, 105, 0.1)',
+              borderWidth: 3,
+              pointBackgroundColor: '#047857',
+              pointRadius: 4,
+              tension: 0.35,
+              yAxisID: 'y1'
+            },
+            {
+              type: 'bar',
+              label: 'PRECTOTCORR (Curah Hujan mm/hari)',
+              data: region.precip,
+              backgroundColor: 'rgba(14, 165, 233, 0.8)',
+              borderRadius: 8,
+              yAxisID: 'y'
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          interaction: { mode: 'index', intersect: false },
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              backgroundColor: '#0F172A',
+              titleFont: { family: 'Plus Jakarta Sans', size: 13, weight: 'bold' },
+              bodyFont: { family: 'JetBrains Mono', size: 11 },
+              padding: 12,
+              cornerRadius: 12
+            }
+          },
+          scales: {
+            x: {
+              grid: { display: false },
+              ticks: { font: { family: 'Inter', size: 11, weight: '500' }, color: '#475569' }
+            },
+            y: {
+              type: 'linear',
+              position: 'left',
+              title: { display: true, text: 'Curah Hujan (mm/hari)', font: { size: 11, weight: 'bold' }, color: '#0284C7' },
+              grid: { color: '#F1F5F9' },
+              ticks: { font: { family: 'JetBrains Mono', size: 10 }, color: '#475569' }
+            },
+            y1: {
+              type: 'linear',
+              position: 'right',
+              min: 0,
+              max: 1,
+              title: { display: true, text: 'GWETROOT (0–1)', font: { size: 11, weight: 'bold' }, color: '#059669' },
+              grid: { drawOnChartArea: false },
+              ticks: { font: { family: 'JetBrains Mono', size: 10 }, color: '#059669' }
+            }
+          }
+        }
+      });
+    }
+
+    window.addEventListener('DOMContentLoaded', updateDashboard);
+  </script>
 </body>
 </html>
