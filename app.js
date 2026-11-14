@@ -19,3 +19,8 @@ function resetToIntro() {
     document.body.classList.add('overflow-hidden');
   }
 }
+// Sinkronisasi teks wilayah & tahun aktif ke banner kanan atas
+  const bannerBadge = document.getElementById('bannerActiveBadge');
+  if (bannerBadge) {
+    bannerBadge.textContent = `${region.name} • ${periodLabel}`;
+  }
