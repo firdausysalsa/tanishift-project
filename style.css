@@ -1,21 +1,16 @@
-@keyframes floatSlow {
-  0%, 100% { transform: translateY(0px) rotate(0deg); }
-  50% { transform: translateY(-10px) rotate(1.5deg); }
-}
-
 @keyframes pulseGlow {
-  0%, 100% { opacity: 0.5; transform: scale(1); }
+  0%, 100% { opacity: 0.45; transform: scale(1); }
   50% { opacity: 0.85; transform: scale(1.06); }
 }
 
 @keyframes fadeInScale {
-  0% { opacity: 0; transform: scale(0.96) translateY(12px); }
+  0% { opacity: 0; transform: scale(0.97) translateY(10px); }
   100% { opacity: 1; transform: scale(1) translateY(0); }
 }
 
 @keyframes colorPulse {
-  0%, 100% { opacity: 0.75; transform: scale(1); }
-  50% { opacity: 0.92; transform: scale(1.04); }
+  0%, 100% { opacity: 0.80; transform: scale(1); }
+  50% { opacity: 0.92; transform: scale(1.03); }
 }
 
 body {
@@ -34,15 +29,22 @@ body::before {
   content: '';
   position: fixed;
   inset: 0;
-  background: linear-gradient(135deg, rgba(2, 44, 34, 0.82), rgba(6, 78, 59, 0.88));
+  background: linear-gradient(135deg, rgba(2, 44, 34, 0.84), rgba(6, 78, 59, 0.90));
   animation: colorPulse 8s ease-in-out infinite;
   pointer-events: none;
   z-index: 0;
 }
 
-header, main, footer, #introScreen {
+/* Pastikan hanya konten utama yang relative, sementara #introScreen tetap fixed z-50 */
+header, main, footer {
   position: relative;
   z-index: 10;
+}
+
+#introScreen {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
 }
 
 h1, h2, h3, h4, .font-display {
@@ -54,16 +56,16 @@ h1, h2, h3, h4, .font-display {
 }
 
 .card-elevated {
-  background: rgba(255, 255, 255, 0.94);
+  background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.45);
-  box-shadow: 0 12px 35px -5px rgba(0, 0, 0, 0.15), 0 4px 15px rgba(0, 0, 0, 0.06);
-  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 12px 35px -5px rgba(0, 0, 0, 0.16), 0 4px 15px rgba(0, 0, 0, 0.06);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .card-elevated:hover {
   box-shadow: 0 22px 45px -10px rgba(0, 0, 0, 0.25);
-  transform: translateY(-3px);
+  transform: translateY(-2px);
 }
 
 .glow-effect {
@@ -71,7 +73,7 @@ h1, h2, h3, h4, .font-display {
 }
 
 .animate-in-custom {
-  animation: fadeInScale 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: fadeInScale 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .map-pin {
